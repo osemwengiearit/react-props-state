@@ -1,20 +1,20 @@
-const Navbar = ({ total }) => {
+function Navbar({ cartCount }) {
   return (
     <>
       <header
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "16px 20px",
+          padding: "20px",
           backgroundColor: "#111827",
           color: "white",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
         <h2>Product Catalog</h2>
-        <p>{total} items</p>
+        <span>Cart ({cartCount})</span>
       </header>
     </>
   );
-};
+}
 
 export default Navbar;
