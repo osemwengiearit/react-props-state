@@ -1,28 +1,47 @@
-import { Fragment, useState } from "react";
+import { useState, Fragment } from "react";
 import Navbar from "./components/Navbar";
 import ProductGrid from "./components/ProductGrid";
-import CategoryFilter from "./components/CategoryFilter";
+import SearchBar from "./components/SearchBar";
 import products from "./products";
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [cart, setCart] = useState([]);
+  const [query, setQuery] = useState("");
 
-  const categories = ["All", ...new Set(products.map((p) => p.category))];
+  function handleToggleCart(product) {
+    const exists = cart.find((item) => item.id === product.id);
 
-  const filteredProducts =
-    selectedCategory === "All"
-      ? products
-      : products.filter((p) => p.category === selectedCategory);
+    if (exists) {
+      setCart(cart.filter((item) => item.id !== product.id));
+    } else {
+      setCart([...cart, { ...product, qty: 1 }]);
+    }
+  }
+
+  function updateQuantity(id, amount) {
+    setCart(
+      cart.map((item) =>
+        item.id === id
+          ? { ...item, qty: Math.max(1, item.qty + amount) }
+          : item,
+      ),
+    );
+  }
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(query.toLowerCase()),
+  );
 
   return (
     <Fragment>
-      <Navbar totalProducts={filteredProducts.length} />
-      <CategoryFilter
-        categories={categories}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+      <Navbar cartCount={cart.length} />
+      <SearchBar query={query} setQuery={setQuery} />
+      <ProductGrid
+        products={filteredProducts}
+        cart={cart}
+        handleToggleCart={handleToggleCart}
+        updateQuantity={updateQuantity}
       />
-      <ProductGrid products={filteredProducts} />
     </Fragment>
   );
 }
