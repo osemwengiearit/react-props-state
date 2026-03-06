@@ -8,6 +8,24 @@ function ProductCard({ product, cartItem, handleToggleCart, updateQuantity }) {
     textAlign: "center",
   };
 
+  const buttonStyle = {
+    marginTop: "10px",
+    padding: "8px 12px",
+    border: "none",
+    borderRadius: "6px",
+    backgroundColor: inCart ? "#e11d48" : "#2563eb",
+    color: "white",
+    cursor: "pointer",
+  };
+
+  const qtyButtonStyle = {
+    padding: "5px 10px",
+    margin: "0 5px",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    cursor: "pointer",
+  };
+
   return (
     <div style={cardStyle}>
       <img
@@ -19,15 +37,27 @@ function ProductCard({ product, cartItem, handleToggleCart, updateQuantity }) {
       <h3>{product.name}</h3>
       <p>${product.price.toFixed(2)}</p>
 
-      <button onClick={() => handleToggleCart(product)}>
+      <button style={buttonStyle} onClick={() => handleToggleCart(product)}>
         {inCart ? "Remove from Cart" : "Add to Cart"}
       </button>
 
       {inCart && (
         <div style={{ marginTop: "10px" }}>
-          <button onClick={() => updateQuantity(product.id, -1)}>-</button>
+          <button
+            style={qtyButtonStyle}
+            onClick={() => updateQuantity(product.id, -1)}
+          >
+            -
+          </button>
+
           <span style={{ margin: "0 10px" }}>{cartItem.qty}</span>
-          <button onClick={() => updateQuantity(product.id, 1)}>+</button>
+
+          <button
+            style={qtyButtonStyle}
+            onClick={() => updateQuantity(product.id, 1)}
+          >
+            +
+          </button>
         </div>
       )}
     </div>

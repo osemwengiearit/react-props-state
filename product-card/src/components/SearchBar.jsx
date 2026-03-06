@@ -7,9 +7,11 @@ function SearchBar({ query, setQuery }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         style={{
-          padding: "10px",
+          padding: "12px",
           width: "100%",
-          maxWidth: "400px",
+          maxWidth: "500px",
+          borderRadius: "6px",
+          border: "1px solid #ccc",
         }}
       />
     </div>
