@@ -2,7 +2,7 @@ import { useState, Fragment } from "react";
 import Navbar from "./components/Navbar";
 import ProductGrid from "./components/ProductGrid";
 import SearchBar from "./components/SearchBar";
-import products from "./data/products";
+import products from "./products";
 
 function App() {
   const [cart, setCart] = useState([]);
